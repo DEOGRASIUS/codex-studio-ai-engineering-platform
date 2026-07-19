@@ -7,19 +7,41 @@
         <p class="eyebrow">Workspace</p>
         <h1 id="dashboard-title">Welcome, {{ request.user.username }}</h1>
         <p class="dashboard-intro">Your AI engineering workspace is ready.</p>
-        <button class="button button-primary" type="button">Create New Project</button>
+        <a class="button button-primary" href="{% url 'projects:create' %}">Create New Project</a>
     </section>
 
-    <section class="dashboard-grid" aria-label="Workspace overview">
-        <article class="card dashboard-card">
-            <p class="card-label">Projects</p>
-            <h2>Build with structure</h2>
-            <p>Turn your next idea into an organized engineering workflow.</p>
-        </article>
-        <article class="card dashboard-card">
-            <p class="card-label">Workflow</p>
-            <h2>Designed for momentum</h2>
-            <p>Guide each delivery stage from requirements through documentation.</p>
-        </article>
+    <section class="projects-section" aria-labelledby="projects-title">
+        <div class="section-heading section-heading-row">
+            <div>
+                <p class="eyebrow">Your work</p>
+                <h2 id="projects-title">Projects</h2>
+            </div>
+            <a href="{% url 'projects:create' %}">Create project</a>
+        </div>
+
+        {% if projects %}
+            <div class="project-list">
+                {% for project in projects %}
+                    <article class="card project-card">
+                        <div>
+                            <h3>{{ project.name }}</h3>
+                            <p class="project-meta">
+                                <span>{{ project.technology|default:"Technology not specified" }}</span>
+                                <span>{{ project.get_complexity_display }}</span>
+                                <span>{{ project.get_status_display }}</span>
+                            </p>
+                            <p class="project-date">Created {{ project.created_at|date:"M j, Y" }}</p>
+                        </div>
+                        <button class="button button-secondary" type="button">Continue</button>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <article class="card empty-state">
+                <h3>No projects yet</h3>
+                <p>Create your first project to generate its engineering workflow.</p>
+                <a class="button button-primary" href="{% url 'projects:create' %}">Create New Project</a>
+            </article>
+        {% endif %}
     </section>
 {% endblock %}

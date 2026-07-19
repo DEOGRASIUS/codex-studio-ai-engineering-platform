@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Create Project | Codex Studio{% endblock %}
+
+{% block content %}
+    <section class="create-project-layout" aria-labelledby="create-project-title">
+        <div class="create-project-intro">
+            <p class="eyebrow">New project</p>
+            <h1 id="create-project-title">Start with a clear brief.</h1>
+            <p>
+                Codex Studio will prepare a complete engineering workflow for your project,
+                from requirements analysis through documentation.
+            </p>
+        </div>
+
+        <div class="card project-form-card">
+            <form class="form-stack" method="post">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <fieldset>
+                    <legend>Project details</legend>
+                    {{ form.as_p }}
+                </fieldset>
+                <div class="form-actions">
+                    <a class="button button-secondary" href="{% url 'dashboard' %}">Cancel</a>
+                    <button class="button button-primary" type="submit">Create Project</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

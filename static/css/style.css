@@ -83,8 +83,9 @@ h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); }
 .form-stack legend { margin-bottom: 0.9rem; color: var(--text); font-size: 0.88rem; font-weight: 800; }
 .form-stack p { margin-bottom: 1rem; }
 .form-stack label { display: block; margin-bottom: 0.35rem; color: var(--text); font-size: 0.9rem; font-weight: 650; }
-.form-stack input { width: 100%; min-height: 2.75rem; padding: 0.6rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; background: var(--surface); color: var(--text); font: inherit; }
-.form-stack input:focus { outline: 3px solid rgb(20 184 166 / 20%); border-color: var(--primary); }
+.form-stack input, .form-stack textarea, .form-stack select { width: 100%; min-height: 2.75rem; padding: 0.6rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; background: var(--surface); color: var(--text); font: inherit; }
+.form-stack textarea { resize: vertical; }
+.form-stack input:focus, .form-stack textarea:focus, .form-stack select:focus { outline: 3px solid rgb(20 184 166 / 20%); border-color: var(--primary); }
 .form-stack .helptext { display: block; margin-top: 0.35rem; color: var(--text-muted); font-size: 0.78rem; }
 .form-stack ul.errorlist { margin: 0.35rem 0 0; padding-left: 1rem; color: var(--danger); font-size: 0.82rem; }
 
@@ -94,10 +95,25 @@ h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); }
 
 .dashboard-hero { padding: 2.5rem 0 2rem; }
 .dashboard-hero h1 { margin-bottom: 0.75rem; font-size: clamp(2.25rem, 5vw, 3.5rem); }
-.dashboard-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.75rem; }
-.dashboard-card { padding: 1.5rem; box-shadow: none; }
-.dashboard-card h2 { margin-bottom: 0.65rem; font-size: 1.3rem; }
-.dashboard-card p:last-child { margin-bottom: 0; color: var(--text-muted); }
+.projects-section { margin-top: 2rem; }
+.section-heading-row { display: flex; align-items: end; justify-content: space-between; gap: 1rem; }
+.section-heading-row h2 { margin-bottom: 0; }
+.project-list { display: grid; gap: 0.85rem; }
+.project-card { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.35rem 1.5rem; box-shadow: none; }
+.project-card h3, .empty-state h3 { margin: 0 0 0.45rem; color: var(--text); font-size: 1.15rem; letter-spacing: -0.02em; }
+.project-meta { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.3rem; color: var(--text-muted); font-size: 0.88rem; }
+.project-meta span + span::before { margin-right: 0.45rem; color: #cbd5e1; content: "•"; }
+.project-date { margin: 0; color: var(--text-muted); font-size: 0.82rem; }
+.empty-state { padding: 2rem; text-align: center; box-shadow: none; }
+.empty-state p { color: var(--text-muted); }
+
+.create-project-layout { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(22rem, 0.75fr); align-items: start; gap: clamp(2rem, 7vw, 6rem); padding-block: 2rem; }
+.create-project-intro { padding-top: 1.5rem; }
+.create-project-intro h1 { margin-bottom: 1rem; font-size: clamp(2.25rem, 5vw, 3.75rem); }
+.create-project-intro > p:last-child { max-width: 34rem; color: var(--text-muted); font-size: 1.05rem; }
+.project-form-card { padding: clamp(1.5rem, 4vw, 2.25rem); }
+.project-form-card .form-stack { margin-top: 0; }
+.form-actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; }
 
 .site-footer { margin-top: auto; border-top: 1px solid var(--border); background: var(--surface); }
 .footer-content { display: flex; justify-content: space-between; gap: 1rem; padding-block: 1.25rem; color: var(--text-muted); font-size: 0.85rem; }
@@ -108,6 +124,9 @@ h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); }
     .navigation { min-height: auto; padding-block: 0.85rem; align-items: flex-start; }
     .nav-links { justify-content: flex-end; flex-wrap: wrap; }
     .nav-links a:not(.button) { padding-inline: 0.35rem; }
-    .workflow-list, .dashboard-grid { grid-template-columns: 1fr; }
+    .create-project-layout { grid-template-columns: 1fr; gap: 1rem; padding-top: 0; }
+    .create-project-intro { padding-top: 0; }
+    .project-card { align-items: flex-start; flex-direction: column; }
+    .section-heading-row { align-items: flex-start; flex-direction: column; }
     .footer-content { flex-direction: column; }
 }

@@ -1,5 +1,11 @@
-"""URL routes for the projects app."""
+"""URL routes for project management."""
+
+from django.urls import path
+
+from .views import ProjectCreateView
 
 app_name = 'projects'
 
-urlpatterns = []
+urlpatterns = [
+    path('create/', ProjectCreateView.as_view(), name='create'),
+]
