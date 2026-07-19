@@ -3,22 +3,27 @@
 {% block title %}Codex Studio | Your AI Software Engineering Team{% endblock %}
 
 {% block content %}
-    <section aria-labelledby="hero-title">
+    <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">The AI delivery workspace</p>
         <h1 id="hero-title">Codex Studio</h1>
-        <p>Your AI Software Engineering Team</p>
-        <p>
+        <p class="hero-subtitle">Your AI Software Engineering Team</p>
+        <p class="hero-copy">
             Transform software ideas into structured engineering projects using a team of
             specialized AI engineers.
         </p>
-        <p>
-            <a href="{% url 'accounts:login' %}">Login</a>
-            <a href="{% url 'accounts:register' %}">Get Started</a>
-        </p>
+        <div class="hero-actions">
+            <a class="button button-secondary" href="{% url 'accounts:login' %}">Login</a>
+            <a class="button button-primary" href="{% url 'accounts:register' %}">Get Started</a>
+        </div>
     </section>
 
-    <section id="workflow" aria-labelledby="workflow-title">
-        <h2 id="workflow-title">Engineering Workflow</h2>
-        <ol>
+    <section id="workflow" class="workflow-section" aria-labelledby="workflow-title">
+        <div class="section-heading">
+            <p class="eyebrow">One connected process</p>
+            <h2 id="workflow-title">Engineering Workflow</h2>
+            <p>Every specialist advances the work with clarity and context.</p>
+        </div>
+        <ol class="workflow-list">
             <li>User Idea <span aria-hidden="true">↓</span></li>
             <li>Requirements Analyst <span aria-hidden="true">↓</span></li>
             <li>Project Manager <span aria-hidden="true">↓</span></li>

@@ -3,18 +3,20 @@
 {% block title %}Login | Codex Studio{% endblock %}
 
 {% block content %}
-    <section aria-labelledby="login-title">
+    <section class="auth-layout" aria-labelledby="login-title">
+        <div class="auth-card card">
         <h1 id="login-title">Login</h1>
-        <p>Continue to your AI engineering workspace.</p>
-        <form method="post">
+        <p class="auth-intro">Continue to your AI engineering workspace.</p>
+        <form class="form-stack" method="post">
             {% csrf_token %}
             {{ form.non_field_errors }}
             <fieldset>
                 <legend>Account credentials</legend>
                 {{ form.as_p }}
             </fieldset>
-            <button type="submit">Login</button>
+            <button class="button button-primary button-full" type="submit">Login</button>
         </form>
-        <p>New to Codex Studio? <a href="{% url 'accounts:register' %}">Register</a>.</p>
+        <p class="auth-switch">New to Codex Studio? <a href="{% url 'accounts:register' %}">Register</a>.</p>
+        </div>
     </section>
 {% endblock %}

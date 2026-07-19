@@ -3,9 +3,23 @@
 {% block title %}Dashboard | Codex Studio{% endblock %}
 
 {% block content %}
-    <section aria-labelledby="dashboard-title">
+    <section class="dashboard-hero" aria-labelledby="dashboard-title">
+        <p class="eyebrow">Workspace</p>
         <h1 id="dashboard-title">Welcome, {{ request.user.username }}</h1>
-        <p>Your AI engineering workspace is ready.</p>
-        <button type="button">Create New Project</button>
+        <p class="dashboard-intro">Your AI engineering workspace is ready.</p>
+        <button class="button button-primary" type="button">Create New Project</button>
+    </section>
+
+    <section class="dashboard-grid" aria-label="Workspace overview">
+        <article class="card dashboard-card">
+            <p class="card-label">Projects</p>
+            <h2>Build with structure</h2>
+            <p>Turn your next idea into an organized engineering workflow.</p>
+        </article>
+        <article class="card dashboard-card">
+            <p class="card-label">Workflow</p>
+            <h2>Designed for momentum</h2>
+            <p>Guide each delivery stage from requirements through documentation.</p>
+        </article>
     </section>
 {% endblock %}

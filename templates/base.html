@@ -1,48 +1,60 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Codex Studio{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <header>
-        <a href="{% url 'landing' %}">Codex Studio</a>
-        <nav aria-label="Primary navigation">
-            <ul>
+    <div class="site-shell">
+        <header class="site-header">
+            <div class="container navigation">
+                <a class="brand" href="{% url 'landing' %}" aria-label="Codex Studio home">
+                    <span class="brand-mark" aria-hidden="true">C</span>
+                    <span>Codex Studio</span>
+                </a>
+                <nav aria-label="Primary navigation">
+                    <ul class="nav-links">
                 {% if request.user.is_authenticated %}
                     <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
                     <li>
-                        <form action="{% url 'accounts:logout' %}" method="post">
+                        <form class="logout-form" action="{% url 'accounts:logout' %}" method="post">
                             {% csrf_token %}
-                            <button type="submit">Logout</button>
+                            <button class="button button-ghost button-small" type="submit">Logout</button>
                         </form>
                     </li>
                 {% else %}
                     <li><a href="{% url 'landing' %}">Home</a></li>
                     <li><a href="{% url 'accounts:login' %}">Login</a></li>
-                    <li><a href="{% url 'accounts:register' %}">Register</a></li>
+                    <li><a class="button button-primary button-small" href="{% url 'accounts:register' %}">Register</a></li>
                 {% endif %}
-            </ul>
-        </nav>
-    </header>
+                    </ul>
+                </nav>
+            </div>
+        </header>
 
-    <main>
-        {% if messages %}
-            <section aria-label="Messages">
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            </section>
-        {% endif %}
+        <main class="site-main">
+            <div class="container">
+                {% if messages %}
+                    <section class="messages" aria-label="Messages">
+                        {% for message in messages %}
+                            <p class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message }}</p>
+                        {% endfor %}
+                    </section>
+                {% endif %}
 
-        {% block content %}{% endblock %}
-    </main>
+                {% block content %}{% endblock %}
+            </div>
+        </main>
 
-    <footer>
-        <p>&copy; {% now "Y" %} Codex Studio</p>
-    </footer>
+        <footer class="site-footer">
+            <div class="container footer-content">
+                <p>&copy; {% now "Y" %} Codex Studio</p>
+                <p>Structured software delivery, from idea to implementation.</p>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>
