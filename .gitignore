@@ -1,0 +1,24 @@
+# Virtual Environment
+.deo_studio/
+
+# Environment Variables
+.env
+
+# SQLite Database
+db.sqlite3
+
+# Python
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Generated Files
+generated_projects/
+
+# Static build files
+staticfiles/

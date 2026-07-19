@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Codex Studio{% endblock %}
+
+{% block content %}
+    <section aria-labelledby="dashboard-title">
+        <h1 id="dashboard-title">Welcome, {{ request.user.username }}</h1>
+        <p>Your AI engineering workspace is ready.</p>
+        <button type="button">Create New Project</button>
+    </section>
+{% endblock %}

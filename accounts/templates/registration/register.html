@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Register | Codex Studio{% endblock %}
+
+{% block content %}
+    <section aria-labelledby="register-title">
+        <h1 id="register-title">Create your account</h1>
+        <p>Start building with your AI software engineering team.</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <fieldset>
+                <legend>Account details</legend>
+                {{ form.as_p }}
+            </fieldset>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="{% url 'accounts:login' %}">Login</a>.</p>
+    </section>
+{% endblock %}

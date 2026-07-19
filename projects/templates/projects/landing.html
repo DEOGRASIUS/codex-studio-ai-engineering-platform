@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Codex Studio | Your AI Software Engineering Team{% endblock %}
+
+{% block content %}
+    <section aria-labelledby="hero-title">
+        <h1 id="hero-title">Codex Studio</h1>
+        <p>Your AI Software Engineering Team</p>
+        <p>
+            Transform software ideas into structured engineering projects using a team of
+            specialized AI engineers.
+        </p>
+        <p>
+            <a href="{% url 'accounts:login' %}">Login</a>
+            <a href="{% url 'accounts:register' %}">Get Started</a>
+        </p>
+    </section>
+
+    <section id="workflow" aria-labelledby="workflow-title">
+        <h2 id="workflow-title">Engineering Workflow</h2>
+        <ol>
+            <li>User Idea <span aria-hidden="true">↓</span></li>
+            <li>Requirements Analyst <span aria-hidden="true">↓</span></li>
+            <li>Project Manager <span aria-hidden="true">↓</span></li>
+            <li>System Architect <span aria-hidden="true">↓</span></li>
+            <li>Designer <span aria-hidden="true">↓</span></li>
+            <li>Database Engineer <span aria-hidden="true">↓</span></li>
+            <li>Backend Engineer <span aria-hidden="true">↓</span></li>
+            <li>Frontend Engineer <span aria-hidden="true">↓</span></li>
+            <li>QA Engineer <span aria-hidden="true">↓</span></li>
+            <li>Documentation</li>
+        </ol>
+    </section>
+{% endblock %}
