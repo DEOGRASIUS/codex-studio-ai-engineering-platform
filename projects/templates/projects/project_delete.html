@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}
+Delete Project | Codex Studio
+{% endblock %}
+
+
+{% block content %}
+
+<section 
+class="create-project-layout"
+aria-labelledby="delete-project-title">
+
+
+    <div class="create-project-intro">
+
+        <p class="eyebrow">
+            Delete project
+        </p>
+
+
+        <h1 id="delete-project-title">
+            Remove this project?
+        </h1>
+
+
+        <p>
+            This action will permanently remove the project,
+            workflow progress, and generated documents.
+        </p>
+
+    </div>
+
+
+
+    <div class="card project-form-card">
+
+
+        <form 
+        class="form-stack"
+        method="post">
+
+
+            {% csrf_token %}
+
+
+            <fieldset>
+
+                <legend>
+                    Confirmation
+                </legend>
+
+
+                <p>
+                    Are you sure you want to delete:
+                </p>
+
+
+                <h2>
+                    {{ project.name }}
+                </h2>
+
+
+                <p>
+                    This action cannot be undone.
+                </p>
+
+
+            </fieldset>
+
+
+
+            <div class="form-actions">
+
+
+                <a 
+                class="button button-secondary"
+                href="{% url 'projects:detail' project.pk %}">
+                    Cancel
+                </a>
+
+
+
+                <button 
+                class="button button-danger"
+                type="submit">
+
+                    Delete Project
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+</section>
+
+
+{% endblock %}

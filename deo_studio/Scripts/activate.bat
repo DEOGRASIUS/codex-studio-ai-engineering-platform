@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set "VIRTUAL_ENV=C:\Users\Deograsius\OneDrive\Desktop\DEO STUDIO\deo_studio"
+set "VIRTUAL_ENV=C:\projects\codexstudio\deo_studio"
 
 if not defined PROMPT set PROMPT=$P$G
 

@@ -32,7 +32,7 @@
                             </p>
                             <p class="project-date">Created {{ project.created_at|date:"M j, Y" }}</p>
                         </div>
-                        <button class="button button-secondary" type="button">Continue</button>
+                        <a class="button button-secondary" href="{% url 'projects:detail' project.pk %}">Continue</a>
                     </article>
                 {% endfor %}
             </div>
