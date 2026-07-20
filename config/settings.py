@@ -9,7 +9,10 @@ import dj_database_url
 from dotenv import load_dotenv
 
 
-# Base directory
+# --------------------------------------------------
+# BASE DIRECTORY
+# --------------------------------------------------
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -18,7 +21,10 @@ load_dotenv(BASE_DIR / ".env")
 
 
 
-# Security
+# --------------------------------------------------
+# SECURITY
+# --------------------------------------------------
+
 SECRET_KEY = os.getenv(
     "SECRET_KEY",
     "django-insecure-development-key"
@@ -28,11 +34,13 @@ SECRET_KEY = os.getenv(
 DEBUG = os.getenv(
     "DEBUG",
     "False"
-) == "True"
+).lower() == "true"
 
 
 
-# Hosts
+# --------------------------------------------------
+# HOSTS
+# --------------------------------------------------
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -40,31 +48,53 @@ ALLOWED_HOSTS = [
 ]
 
 
-# Add deployed domain dynamically
-DEPLOY_DOMAIN = os.getenv(
-    "DEPLOY_DOMAIN"
+# Render automatically provides this
+RENDER_EXTERNAL_HOSTNAME = os.getenv(
+    "RENDER_EXTERNAL_HOSTNAME"
 )
 
-if DEPLOY_DOMAIN:
+
+if RENDER_EXTERNAL_HOSTNAME:
+
     ALLOWED_HOSTS.append(
-        DEPLOY_DOMAIN
+        RENDER_EXTERNAL_HOSTNAME
     )
 
 
+# Manual fallback
+ALLOWED_HOSTS.extend(
+    [
+        "codex-studio-ai-engineering-platform.onrender.com",
+    ]
+)
 
-# CSRF trusted origins
+
+
+# --------------------------------------------------
+# CSRF
+# --------------------------------------------------
 
 CSRF_TRUSTED_ORIGINS = []
 
 
-if DEPLOY_DOMAIN:
-    CSRF_TRUSTED_ORIGINS.append(
-        f"https://{DEPLOY_DOMAIN}"
-    )
+for host in ALLOWED_HOSTS:
+
+    if host not in [
+        "localhost",
+        "127.0.0.1",
+    ]:
+
+        CSRF_TRUSTED_ORIGINS.append(
+            f"https://{host}"
+        )
 
 
 
-# Application definition
+
+
+# --------------------------------------------------
+# APPLICATIONS
+# --------------------------------------------------
 
 INSTALLED_APPS = [
 
@@ -92,24 +122,33 @@ INSTALLED_APPS = [
 
 
 
+
+# --------------------------------------------------
+# MIDDLEWARE
+# --------------------------------------------------
+
 MIDDLEWARE = [
 
     "django.middleware.security.SecurityMiddleware",
 
 
-    # WhiteNoise static files
     "whitenoise.middleware.WhiteNoiseMiddleware",
 
 
     "django.contrib.sessions.middleware.SessionMiddleware",
 
+
     "django.middleware.common.CommonMiddleware",
+
 
     "django.middleware.csrf.CsrfViewMiddleware",
 
+
     "django.contrib.auth.middleware.AuthenticationMiddleware",
 
+
     "django.contrib.messages.middleware.MessageMiddleware",
+
 
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
@@ -118,10 +157,20 @@ MIDDLEWARE = [
 
 
 
+
+# --------------------------------------------------
+# URL CONFIG
+# --------------------------------------------------
+
 ROOT_URLCONF = "config.urls"
 
 
 
+
+
+# --------------------------------------------------
+# TEMPLATES
+# --------------------------------------------------
 
 TEMPLATES = [
 
@@ -131,17 +180,21 @@ TEMPLATES = [
         "django.template.backends.django.DjangoTemplates",
 
 
-        "DIRS": [
+        "DIRS":
+        [
             BASE_DIR / "templates"
         ],
 
 
-        "APP_DIRS": True,
+        "APP_DIRS":
+        True,
 
 
-        "OPTIONS": {
+        "OPTIONS":
+        {
 
-            "context_processors": [
+            "context_processors":
+            [
 
                 "django.template.context_processors.request",
 
@@ -166,36 +219,53 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 
 
-# Database
+# --------------------------------------------------
+# DATABASE
+# --------------------------------------------------
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL"
 )
 
 
+
 if DATABASE_URL:
+
 
     DATABASES = {
 
+
         "default":
         dj_database_url.parse(
+
             DATABASE_URL,
+
             conn_max_age=600
+
         )
 
     }
 
+
+
 else:
+
 
     DATABASES = {
 
-        "default": {
+
+        "default":
+
+        {
+
 
             "ENGINE":
             "django.db.backends.sqlite3",
 
+
             "NAME":
             BASE_DIR / "db.sqlite3",
+
 
         }
 
@@ -205,7 +275,10 @@ else:
 
 
 
-# Password validation
+
+# --------------------------------------------------
+# PASSWORD VALIDATION
+# --------------------------------------------------
 
 AUTH_PASSWORD_VALIDATORS = [
 
@@ -235,7 +308,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 
-# Internationalization
+# --------------------------------------------------
+# INTERNATIONALIZATION
+# --------------------------------------------------
 
 LANGUAGE_CODE = "en-us"
 
@@ -249,7 +324,9 @@ USE_TZ = True
 
 
 
-# Static files
+# --------------------------------------------------
+# STATIC FILES
+# --------------------------------------------------
 
 STATIC_URL = "/static/"
 
@@ -265,11 +342,12 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 
-# WhiteNoise compression
-
 STORAGES = {
 
-    "default": {
+
+    "default":
+
+    {
 
         "BACKEND":
         "django.core.files.storage.FileSystemStorage",
@@ -277,7 +355,9 @@ STORAGES = {
     },
 
 
-    "staticfiles": {
+    "staticfiles":
+
+    {
 
         "BACKEND":
         "whitenoise.storage.CompressedManifestStaticFilesStorage",
@@ -290,7 +370,9 @@ STORAGES = {
 
 
 
-# Media
+# --------------------------------------------------
+# MEDIA
+# --------------------------------------------------
 
 MEDIA_URL = "/media/"
 
@@ -300,7 +382,9 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 
 
-# Authentication
+# --------------------------------------------------
+# AUTHENTICATION
+# --------------------------------------------------
 
 LOGIN_URL = "/accounts/login/"
 
@@ -312,14 +396,23 @@ LOGOUT_REDIRECT_URL = "/"
 
 
 
-# Security for production
+# --------------------------------------------------
+# PRODUCTION SECURITY
+# --------------------------------------------------
 
 if not DEBUG:
 
+
     SECURE_BROWSER_XSS_FILTER = True
+
 
     SECURE_CONTENT_TYPE_NOSNIFF = True
 
-    SESSION_COOKIE_SECURE = True
 
-    CSRF_COOKIE_SECURE = True
+    X_FRAME_OPTIONS = "DENY"
+
+
+
+    # Enable after HTTPS login testing
+    # SESSION_COOKIE_SECURE = True
+    # CSRF_COOKIE_SECURE = True
